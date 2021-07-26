@@ -16,7 +16,7 @@ public class AllowanceViewModel extends ViewModel
 
 	public AllowanceViewModel()
 	{
-		decimalFormat.setMaximumFractionDigits(2);
+		decimalFormat.setMinimumFractionDigits(2);
 		mText = new MutableLiveData<>();
 		mText.setValue("€ " + decimalFormat.format(allowance));
 	}
