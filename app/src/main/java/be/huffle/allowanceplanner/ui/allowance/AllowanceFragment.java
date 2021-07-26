@@ -25,7 +25,7 @@ public class AllowanceFragment extends Fragment
 		allowanceViewModel =
 				new ViewModelProvider(this).get(AllowanceViewModel.class);
 		View root = inflater.inflate(R.layout.fragment_allowance, container, false);
-		final TextView textView = root.findViewById(R.id.text_home);
+		final TextView textView = root.findViewById(R.id.text_allowance);
 		allowanceViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>()
 		{
 			@Override
