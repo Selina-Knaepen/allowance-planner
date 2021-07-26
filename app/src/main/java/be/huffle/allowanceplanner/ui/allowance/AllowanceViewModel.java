@@ -5,24 +5,30 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.text.DecimalFormat;
-import java.util.Currency;
-import java.util.Locale;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class AllowanceViewModel extends ViewModel
 {
 	private MutableLiveData<String> mText;
-	private double allowance = 0;
+	private Double mAllowance;
 	private DecimalFormat decimalFormat = new DecimalFormat();
 
 	public AllowanceViewModel()
 	{
 		decimalFormat.setMinimumFractionDigits(2);
 		mText = new MutableLiveData<>();
-		mText.setValue("€ " + decimalFormat.format(allowance));
+		setAllowance(0.00);
 	}
 
 	public LiveData<String> getText()
 	{
 		return mText;
+	}
+
+	public void setAllowance(Double mAllowance)
+	{
+		this.mAllowance = mAllowance;
+		mText.setValue("€ " + decimalFormat.format(mAllowance));
 	}
 }
