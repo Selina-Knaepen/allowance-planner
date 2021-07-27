@@ -11,7 +11,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class AllowanceViewModel extends ViewModel
 {
 	private final MutableLiveData<String> mText;
-	private Double mAllowance;
+	private double mAllowance;
 	private final DecimalFormat decimalFormat = new DecimalFormat();
 
 	public AllowanceViewModel()
@@ -26,7 +26,12 @@ public class AllowanceViewModel extends ViewModel
 		return mText;
 	}
 
-	public void setAllowance(Double mAllowance)
+	public double getAllowance()
+	{
+		return mAllowance;
+	}
+
+	public void setAllowance(double mAllowance)
 	{
 		this.mAllowance = mAllowance;
 		mText.setValue("€ " + decimalFormat.format(mAllowance));

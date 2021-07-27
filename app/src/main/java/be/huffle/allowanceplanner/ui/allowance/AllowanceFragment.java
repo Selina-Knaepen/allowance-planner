@@ -42,7 +42,18 @@ public class AllowanceFragment extends Fragment
 			@Override
 			public void onClick(View view)
 			{
-				allowanceViewModel.setAllowance(1.00);
+				double allowance = allowanceViewModel.getAllowance();
+				allowanceViewModel.setAllowance(allowance + 1);
+			}
+		});
+
+		expenseButton.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				double allowance = allowanceViewModel.getAllowance();
+				allowanceViewModel.setAllowance(allowance - 1);
 			}
 		});
 
