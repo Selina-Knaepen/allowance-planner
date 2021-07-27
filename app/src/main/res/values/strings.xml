@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Allowance Planner</string>
+    <string name="title_allowance">Allowance</string>
+    <string name="title_history">History</string>
+    <string name="button_allowance">Add Allowance</string>
+    <string name="button_expense">Add Expense</string>
+</resources>
