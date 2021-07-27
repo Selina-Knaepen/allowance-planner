@@ -10,9 +10,9 @@ import java.util.Locale;
 
 public class AllowanceViewModel extends ViewModel
 {
-	private MutableLiveData<String> mText;
+	private final MutableLiveData<String> mText;
 	private double allowance = 0;
-	private DecimalFormat decimalFormat = new DecimalFormat();
+	private final DecimalFormat decimalFormat = new DecimalFormat();
 
 	public AllowanceViewModel()
 	{
