@@ -26,7 +26,7 @@ public class AddExpenseActivity extends AppCompatActivity
 	{
 		int id = item.getItemId();
 
-		if (id==android.R.id.home) {
+		if (id == android.R.id.home) {
 			finish();
 		}
 

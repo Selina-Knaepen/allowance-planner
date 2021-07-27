@@ -52,13 +52,6 @@ public class AllowanceFragment extends Fragment
 			@Override
 			public void onClick(View view)
 			{
-//				float allowance = sharedPreferences.getFloat("allowance", 0.00f) + 1.03f;
-//
-//				editor.putFloat("allowance", allowance);
-//				editor.commit();
-//
-//				allowanceViewModel.setAllowance(allowance);
-
 				Intent intent = new Intent(getActivity(), AddAllowanceActivity.class);
 				startActivity(intent);
 			}
@@ -69,12 +62,6 @@ public class AllowanceFragment extends Fragment
 			@Override
 			public void onClick(View view)
 			{
-//				float allowance = sharedPreferences.getFloat("allowance", 0.00f) - 1.03f;
-//
-//				editor.putFloat("allowance", allowance);
-//				editor.commit();
-//
-//				allowanceViewModel.setAllowance(allowance);
 				Intent intent = new Intent(getActivity(), AddExpenseActivity.class);
 				startActivityForResult(intent, 0);
 			}
