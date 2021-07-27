@@ -1,5 +1,6 @@
 package be.huffle.allowanceplanner.ui.allowance;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.*;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import be.huffle.allowanceplanner.R;
+import be.huffle.allowanceplanner.activities.AddAllowanceActivity;
+import be.huffle.allowanceplanner.activities.AddExpenseActivity;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -49,12 +52,8 @@ public class AllowanceFragment extends Fragment
 			@Override
 			public void onClick(View view)
 			{
-				float allowance = sharedPreferences.getFloat("allowance", 0.00f) + 1.03f;
-
-				editor.putFloat("allowance", allowance);
-				editor.commit();
-
-				allowanceViewModel.setAllowance(allowance);
+				Intent intent = new Intent(getActivity(), AddAllowanceActivity.class);
+				startActivity(intent);
 			}
 		});
 
@@ -63,12 +62,8 @@ public class AllowanceFragment extends Fragment
 			@Override
 			public void onClick(View view)
 			{
-				float allowance = sharedPreferences.getFloat("allowance", 0.00f) - 1.03f;
-
-				editor.putFloat("allowance", allowance);
-				editor.commit();
-
-				allowanceViewModel.setAllowance(allowance);
+				Intent intent = new Intent(getActivity(), AddExpenseActivity.class);
+				startActivityForResult(intent, 0);
 			}
 		});
 

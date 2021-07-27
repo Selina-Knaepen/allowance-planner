@@ -4,4 +4,7 @@
     <string name="title_history">History</string>
     <string name="button_allowance">Add Allowance</string>
     <string name="button_expense">Add Expense</string>
+    <string name="subtitle_amount">Amount:</string>
+    <string name="subtitle_description">Description:</string>
+    <string name="button_add_amount">Add Amount</string>
 </resources>
