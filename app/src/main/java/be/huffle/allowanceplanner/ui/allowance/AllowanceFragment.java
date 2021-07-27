@@ -33,6 +33,13 @@ public class AllowanceFragment extends Fragment
 
 		View root = inflater.inflate(R.layout.fragment_allowance, container, false);
 
+		sharedPreferences = root.getContext().getApplicationContext()
+				.getSharedPreferences("SharedPref",MODE_PRIVATE);
+		editor = sharedPreferences.edit();
+
+		float storedAllowance = sharedPreferences.getFloat("allowance", 0.00f);
+		allowanceViewModel.setAllowance(storedAllowance);
+
 		final TextView textView = root.findViewById(R.id.text_allowance);
 		final Button allowanceButton = root.findViewById(R.id.button_allowance);
 		final Button expenseButton = root.findViewById(R.id.button_expense);
@@ -42,8 +49,12 @@ public class AllowanceFragment extends Fragment
 			@Override
 			public void onClick(View view)
 			{
-				double allowance = allowanceViewModel.getAllowance();
-				allowanceViewModel.setAllowance(allowance + 1);
+				float allowance = sharedPreferences.getFloat("allowance", 0.00f) + 1.03f;
+
+				editor.putFloat("allowance", allowance);
+				editor.commit();
+
+				allowanceViewModel.setAllowance(allowance);
 			}
 		});
 
@@ -52,14 +63,14 @@ public class AllowanceFragment extends Fragment
 			@Override
 			public void onClick(View view)
 			{
-				double allowance = allowanceViewModel.getAllowance();
-				allowanceViewModel.setAllowance(allowance - 1);
+				float allowance = sharedPreferences.getFloat("allowance", 0.00f) - 1.03f;
+
+				editor.putFloat("allowance", allowance);
+				editor.commit();
+
+				allowanceViewModel.setAllowance(allowance);
 			}
 		});
-
-		sharedPreferences = root.getContext().getApplicationContext()
-				.getSharedPreferences("MySharedPref",MODE_PRIVATE);
-		editor = sharedPreferences.edit();
 
 		allowanceViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>()
 		{

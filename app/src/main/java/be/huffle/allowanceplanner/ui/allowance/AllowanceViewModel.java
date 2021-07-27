@@ -11,14 +11,13 @@ import static android.content.Context.MODE_PRIVATE;
 public class AllowanceViewModel extends ViewModel
 {
 	private final MutableLiveData<String> mText;
-	private double mAllowance;
+	private float mAllowance;
 	private final DecimalFormat decimalFormat = new DecimalFormat();
 
 	public AllowanceViewModel()
 	{
 		decimalFormat.setMinimumFractionDigits(2);
 		mText = new MutableLiveData<>();
-		setAllowance(0.00);
 	}
 
 	public LiveData<String> getText()
@@ -26,12 +25,7 @@ public class AllowanceViewModel extends ViewModel
 		return mText;
 	}
 
-	public double getAllowance()
-	{
-		return mAllowance;
-	}
-
-	public void setAllowance(double mAllowance)
+	public void setAllowance(float mAllowance)
 	{
 		this.mAllowance = mAllowance;
 		mText.setValue("€ " + decimalFormat.format(mAllowance));
