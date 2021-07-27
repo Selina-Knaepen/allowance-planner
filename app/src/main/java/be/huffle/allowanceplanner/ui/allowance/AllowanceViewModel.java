@@ -10,9 +10,9 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class AllowanceViewModel extends ViewModel
 {
-	private MutableLiveData<String> mText;
+	private final MutableLiveData<String> mText;
 	private Double mAllowance;
-	private DecimalFormat decimalFormat = new DecimalFormat();
+	private final DecimalFormat decimalFormat = new DecimalFormat();
 
 	public AllowanceViewModel()
 	{
