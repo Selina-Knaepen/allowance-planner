@@ -2,8 +2,10 @@ package be.huffle.allowanceplanner.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.*;
 import android.os.Bundle;
@@ -59,12 +61,37 @@ public class AddAllowanceActivity extends AppCompatActivity implements View.OnCl
 		switch (view.getId())
 		{
 			case R.id.add_button:
-				addAllowance(Float.valueOf(amountEditText.getText().toString()),
+				String amountText = amountEditText.getText().toString();
+
+				if (amountText.isEmpty())
+				{
+					showDialog("Amount needs to be filled out");
+					break;
+				}
+
+				addAllowance(Float.valueOf(amountText),
 						descriptionEditText.getText().toString());
 			break;
 		}
 	}
 
+	private void showDialog(String message)
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(message);
+		builder.setNeutralButton(
+				"Ok",
+				new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int id)
+					{
+						dialog.dismiss();
+					}
+				});
+		AlertDialog alert = builder.create();
+		alert.show();
+	}
 
 	private void addAllowance(float allowance, String description)
 	{

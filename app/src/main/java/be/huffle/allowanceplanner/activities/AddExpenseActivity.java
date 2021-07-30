@@ -62,10 +62,36 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
 		switch (view.getId())
 		{
 			case R.id.add_button:
+				String amountText = amountEditText.getText().toString();
+
+				if (amountText.isEmpty())
+				{
+					showDialog("Amount needs to be filled out");
+					break;
+				}
+				
 				addExpense(Float.valueOf(amountEditText.getText().toString()),
 						descriptionEditText.getText().toString());
 			break;
 		}
+	}
+
+	private void showDialog(String message)
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(message);
+		builder.setNeutralButton(
+				"Ok",
+				new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int id)
+					{
+						dialog.dismiss();
+					}
+				});
+		AlertDialog alert = builder.create();
+		alert.show();
 	}
 
 	private void addExpense(float expense, String description)
@@ -74,20 +100,7 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
 
 		if (balance - expense < 0)
 		{
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage("Insufficient funds");
-			builder.setNeutralButton(
-					"Ok",
-					new DialogInterface.OnClickListener()
-					{
-						@Override
-						public void onClick(DialogInterface dialog, int id)
-						{
-							dialog.dismiss();
-						}
-					});
-			AlertDialog alert = builder.create();
-			alert.show();
+			showDialog("Insufficient funds");
 		}
 		else
 		{
