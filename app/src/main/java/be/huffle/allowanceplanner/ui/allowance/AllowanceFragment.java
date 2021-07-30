@@ -22,7 +22,7 @@ import be.huffle.allowanceplanner.activities.AddExpenseActivity;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class AllowanceFragment extends Fragment
+public class AllowanceFragment extends Fragment implements View.OnClickListener
 {
 	private AllowanceViewModel allowanceViewModel;
 	private SharedPreferences sharedPreferences;
@@ -47,25 +47,8 @@ public class AllowanceFragment extends Fragment
 		final Button allowanceButton = root.findViewById(R.id.button_allowance);
 		final Button expenseButton = root.findViewById(R.id.button_expense);
 
-		allowanceButton.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View view)
-			{
-				Intent intent = new Intent(getActivity(), AddAllowanceActivity.class);
-				startActivity(intent);
-			}
-		});
-
-		expenseButton.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View view)
-			{
-				Intent intent = new Intent(getActivity(), AddExpenseActivity.class);
-				startActivityForResult(intent, 0);
-			}
-		});
+		allowanceButton.setOnClickListener(this);
+		expenseButton.setOnClickListener(this);
 
 		allowanceViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>()
 		{
@@ -76,5 +59,23 @@ public class AllowanceFragment extends Fragment
 			}
 		});
 		return root;
+	}
+
+	@Override
+	public void onClick(View view)
+	{
+		Intent intent;
+
+		switch (view.getId())
+		{
+			case R.id.button_allowance:
+				intent = new Intent(getActivity(), AddAllowanceActivity.class);
+				startActivity(intent);
+			break;
+			case R.id.button_expense:
+				intent = new Intent(getActivity(), AddExpenseActivity.class);
+				startActivityForResult(intent, 0);
+			break;
+		}
 	}
 }
