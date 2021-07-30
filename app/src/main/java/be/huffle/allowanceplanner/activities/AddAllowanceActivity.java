@@ -1,6 +1,7 @@
 package be.huffle.allowanceplanner.activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -17,7 +18,10 @@ public class AddAllowanceActivity extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add);
 
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		ActionBar actionBar = getSupportActionBar();
+
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setTitle("Add Allowance");
 	}
 
 	@Override
