@@ -27,8 +27,8 @@ public class AddAllowanceActivity extends AppCompatActivity implements View.OnCl
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add);
 
-		final ActionBar actionBar = getSupportActionBar();
-		final Button addButton = findViewById(R.id.add_button);
+		ActionBar actionBar = getSupportActionBar();
+		Button addButton = findViewById(R.id.add_button);
 		amountEditText = findViewById(R.id.amount_input);
 		descriptionEditText = findViewById(R.id.description_input);
 		sharedPreferences = getApplicationContext().getSharedPreferences("SharedPref", MODE_PRIVATE);
@@ -53,6 +53,19 @@ public class AddAllowanceActivity extends AppCompatActivity implements View.OnCl
 		return true;
 	}
 
+	@Override
+	public void onClick(View view)
+	{
+		switch (view.getId())
+		{
+			case R.id.add_button:
+				addAllowance(Float.valueOf(amountEditText.getText().toString()),
+						descriptionEditText.getText().toString());
+			break;
+		}
+	}
+
+
 	private void addAllowance(float allowance, String description)
 	{
 		float newBalance = sharedPreferences.getFloat("allowance", 0.00f) + allowance;
@@ -61,16 +74,5 @@ public class AddAllowanceActivity extends AppCompatActivity implements View.OnCl
 		editor.commit();
 
 		finish();
-	}
-
-	@Override
-	public void onClick(View view)
-	{
-		switch (view.getId())
-		{
-			case R.id.add_button:
-				addAllowance(Float.valueOf(amountEditText.getText().toString()), descriptionEditText.getText().toString());
-			break;
-		}
 	}
 }
