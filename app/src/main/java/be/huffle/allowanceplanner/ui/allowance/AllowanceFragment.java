@@ -37,7 +37,7 @@ public class AllowanceFragment extends Fragment implements View.OnClickListener
 		View root = inflater.inflate(R.layout.fragment_allowance, container, false);
 
 		sharedPreferences = root.getContext().getApplicationContext()
-				.getSharedPreferences("SharedPref",MODE_PRIVATE);
+				.getSharedPreferences("SharedPref", MODE_PRIVATE);
 		editor = sharedPreferences.edit();
 
 		float storedAllowance = sharedPreferences.getFloat("allowance", 0.00f);
@@ -77,5 +77,13 @@ public class AllowanceFragment extends Fragment implements View.OnClickListener
 				startActivityForResult(intent, 0);
 			break;
 		}
+
+  @Override
+	public void onResume()
+	{
+		super.onResume();
+
+		float allowance = sharedPreferences.getFloat("allowance", 0.00f);
+		allowanceViewModel.setAllowance(allowance);
 	}
 }
