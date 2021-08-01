@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.*;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -70,7 +69,7 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
 					break;
 				}
 				
-				addExpense(Float.valueOf(amountEditText.getText().toString()),
+				tryAddExpense(Float.valueOf(amountEditText.getText().toString()),
 						descriptionEditText.getText().toString());
 			break;
 		}
@@ -79,6 +78,7 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
 	private void showDialog(String message)
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
 		builder.setMessage(message);
 		builder.setNeutralButton(
 				"Ok",
@@ -94,22 +94,57 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
 		alert.show();
 	}
 
-	private void addExpense(float expense, String description)
+	private void showDialogWithOptions(String message, float balance, float expense)
+	{
+		boolean canAddExpense;
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+		builder.setMessage(message);
+		builder.setPositiveButton("Yes",
+				new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int id)
+					{
+						dialog.dismiss();
+						addExpense(balance, expense);
+					}
+				});
+		builder.setNegativeButton("No",
+				new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int id)
+					{
+						dialog.dismiss();
+					}
+				});
+		AlertDialog alert = builder.create();
+		alert.show();
+	}
+
+	private void tryAddExpense(float expense, String description)
 	{
 		float balance = sharedPreferences.getFloat("allowance", 0.00f);
 
 		if (balance - expense < 0)
 		{
-			showDialog("Insufficient funds");
+			showDialogWithOptions("Insufficient funds! \nAre you sure that you want to add this expense?"
+					, balance, expense);
 		}
 		else
 		{
-			float newBalance = balance - expense;
-
-			editor.putFloat("allowance", newBalance);
-			editor.commit();
-
-			finish();
+			addExpense(balance, expense);
 		}
+	}
+
+	private void addExpense(float balance, float expense)
+	{
+		float newBalance = balance - expense;
+
+		editor.putFloat("allowance", newBalance);
+		editor.commit();
+
+		finish();
 	}
 }
