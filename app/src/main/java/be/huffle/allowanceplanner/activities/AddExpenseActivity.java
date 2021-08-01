@@ -69,7 +69,7 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
 					break;
 				}
 				
-				allowedToAdd(Float.valueOf(amountEditText.getText().toString()),
+				tryAddExpense(Float.valueOf(amountEditText.getText().toString()),
 						descriptionEditText.getText().toString());
 			break;
 		}
@@ -123,7 +123,7 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
 		alert.show();
 	}
 
-	private void allowedToAdd(float expense, String description)
+	private void tryAddExpense(float expense, String description)
 	{
 		float balance = sharedPreferences.getFloat("allowance", 0.00f);
 
@@ -131,7 +131,8 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
 		{
 			showDialogWithOptions("Insufficient funds! \nAre you sure that you want to add this expense?"
 					, balance, expense);
-		} else
+		}
+		else
 		{
 			addExpense(balance, expense);
 		}
