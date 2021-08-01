@@ -71,14 +71,15 @@ public class AllowanceFragment extends Fragment implements View.OnClickListener
 			case R.id.button_allowance:
 				intent = new Intent(getActivity(), AddAllowanceActivity.class);
 				startActivity(intent);
-			break;
+				break;
 			case R.id.button_expense:
 				intent = new Intent(getActivity(), AddExpenseActivity.class);
 				startActivityForResult(intent, 0);
-			break;
+				break;
 		}
+	}
 
-  @Override
+  	@Override
 	public void onResume()
 	{
 		super.onResume();
