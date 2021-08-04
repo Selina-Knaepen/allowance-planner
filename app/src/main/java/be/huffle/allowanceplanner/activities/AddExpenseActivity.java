@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.*;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +17,7 @@ import android.widget.EditText;
 
 import be.huffle.allowanceplanner.R;
 
-public class AddExpenseActivity extends AppCompatActivity implements View.OnClickListener
+public class AddExpenseActivity extends AppCompatActivity
 {
 	private SharedPreferences sharedPreferences;
 	private Editor editor;
@@ -30,7 +31,6 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
 		setContentView(R.layout.activity_add);
 
 		ActionBar actionBar = getSupportActionBar();
-		Button addButton = findViewById(R.id.add_button);
 		amountEditText = findViewById(R.id.amount_input);
 		descriptionEditText = findViewById(R.id.description_input);
 		sharedPreferences = getApplicationContext().getSharedPreferences("SharedPref", MODE_PRIVATE);
@@ -38,41 +38,39 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
 
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setTitle("Add Expense");
-
-		addButton.setOnClickListener(this);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(@NonNull MenuItem item)
 	{
-		int id = item.getItemId();
-
-		if (id == android.R.id.home)
+		switch (item.getItemId())
 		{
-			finish();
-		}
-
-		return true;
-	}
-
-	@Override
-	public void onClick(View view)
-	{
-		switch (view.getId())
-		{
-			case R.id.add_button:
+			case android.R.id.home:
+				finish();
+				return true;
+			case R.id.add_menu_button:
 				String amountText = amountEditText.getText().toString();
 
 				if (amountText.isEmpty())
 				{
 					showDialog("Amount needs to be filled out");
-					break;
+					return true;
 				}
-				
+
 				tryAddExpense(Float.valueOf(amountEditText.getText().toString()),
 						descriptionEditText.getText().toString());
-			break;
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+
 		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		getMenuInflater().inflate(R.menu.add_menu, menu);
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	private void showDialog(String message)
