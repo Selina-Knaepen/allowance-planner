@@ -54,11 +54,13 @@ public class AddExpenseActivity extends AppCompatActivity
 				if (amountText.isEmpty())
 				{
 					showDialog("Amount needs to be filled out");
-					return true;
+				}
+				else
+				{
+					tryAddExpense(Float.valueOf(amountEditText.getText().toString()),
+							descriptionEditText.getText().toString());
 				}
 
-				tryAddExpense(Float.valueOf(amountEditText.getText().toString()),
-						descriptionEditText.getText().toString());
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);

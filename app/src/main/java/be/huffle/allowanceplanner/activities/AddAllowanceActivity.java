@@ -31,7 +31,6 @@ public class AddAllowanceActivity extends AppCompatActivity
 		setContentView(R.layout.activity_add);
 
 		ActionBar actionBar = getSupportActionBar();
-		//Button addButton = findViewById(R.id.add_button);
 		amountEditText = findViewById(R.id.amount_input);
 		descriptionEditText = findViewById(R.id.description_input);
 		sharedPreferences = getApplicationContext().getSharedPreferences("SharedPref", MODE_PRIVATE);
@@ -39,8 +38,6 @@ public class AddAllowanceActivity extends AppCompatActivity
 
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setTitle("Add Allowance");
-
-		//addButton.setOnClickListener(this);
 	}
 
 	@Override
@@ -57,11 +54,13 @@ public class AddAllowanceActivity extends AppCompatActivity
 				if (amountText.isEmpty())
 				{
 					showDialog("Amount needs to be filled out");
-					return true;
+				}
+				else
+				{
+					addAllowance(Float.valueOf(amountEditText.getText().toString()),
+							descriptionEditText.getText().toString());
 				}
 
-				addAllowance(Float.valueOf(amountEditText.getText().toString()),
-						descriptionEditText.getText().toString());
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
