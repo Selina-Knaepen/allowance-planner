@@ -1,10 +1,15 @@
 package be.huffle.allowanceplanner.services;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,18 +19,23 @@ import be.huffle.allowanceplanner.models.History;
 
 public class FileService
 {
-	InputStream inputStream;
+	private File file;
 
-	public FileService(InputStream inputStream)
+	public FileService(File file)
 	{
-		this.inputStream = inputStream;
+		this.file = file;
 	}
 
-	public List readFile()
+	public List<History> readFile()
 	{
 		List<History> historyList = new ArrayList<>();
 
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream)))
+		if (!file.exists())
+		{
+			return historyList;
+		}
+
+		try (BufferedReader reader = new BufferedReader(new FileReader(file)))
 		{
 			String line;
 			History historyItem;
@@ -44,18 +54,30 @@ public class FileService
 		{
 			e.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
-				inputStream.close();
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
 
 		return historyList;
+	}
+
+	public void addItem(History history)
+	{
+		try
+		{
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String date = dateFormat.format(history.getExecutedDate());
+			String content = String.format("%s,%.2f,%s",
+					date,
+					history.getAmount(),
+					history.getDescription());
+
+			FileWriter fileWriter = new FileWriter(file.getAbsoluteFile(), true);
+			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+			bufferedWriter.write(content);
+			bufferedWriter.newLine();
+			bufferedWriter.close();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }
