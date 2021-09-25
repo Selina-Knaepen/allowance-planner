@@ -105,6 +105,10 @@ public class AddAllowanceActivity extends AppCompatActivity
 		float newBalance = sharedPreferences.getFloat("allowance", 0.00f) + allowance;
 		File file = new File(getExternalFilesDir(null), "allowance.csv");
 		FileService fileService = new FileService(file);
+		if (description.isEmpty())
+		{
+			description = "/";
+		}
 
 		editor.putFloat("allowance", newBalance);
 		editor.commit();
