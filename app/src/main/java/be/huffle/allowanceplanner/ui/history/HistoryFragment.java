@@ -1,4 +1,4 @@
-package be.huffle.allowanceplanner.ui.dashboard;
+package be.huffle.allowanceplanner.ui.history;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,24 +19,24 @@ import be.huffle.allowanceplanner.R;
 import be.huffle.allowanceplanner.models.History;
 import be.huffle.allowanceplanner.services.FileService;
 
-public class DashboardFragment extends Fragment
+public class HistoryFragment extends Fragment
 {
 
-	private DashboardViewModel dashboardViewModel;
+	private HistoryViewModel historyViewModel;
 	private FileService fileService;
 
 	public View onCreateView(@NonNull LayoutInflater inflater,
 							 ViewGroup container, Bundle savedInstanceState)
 	{
-		dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
+		historyViewModel = new ViewModelProvider(this).get(HistoryViewModel.class);
 
 		InputStream inputStream = getResources().openRawResource(R.raw.allowance);
 		fileService = new FileService(inputStream);
 		List<History> historyList = fileService.readFile();
 
-		View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-		final TextView textView = root.findViewById(R.id.text_dashboard);
-		dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>()
+		View root = inflater.inflate(R.layout.fragment_history, container, false);
+		final TextView textView = root.findViewById(R.id.text_history);
+		historyViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>()
 		{
 			@Override
 			public void onChanged(@Nullable String s)
