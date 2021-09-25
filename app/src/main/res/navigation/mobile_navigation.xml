@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="be.huffle.allowanceplanner.ui.dashboard.DashboardFragment"
+        android:name="be.huffle.allowanceplanner.ui.history.HistoryFragment"
         android:label="@string/title_history"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_history" />
 </navigation>
