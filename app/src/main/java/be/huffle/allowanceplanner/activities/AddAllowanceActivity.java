@@ -15,7 +15,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import be.huffle.allowanceplanner.R;
+import be.huffle.allowanceplanner.models.History;
+import be.huffle.allowanceplanner.services.FileService;
 
 public class AddAllowanceActivity extends AppCompatActivity
 {
@@ -96,10 +103,14 @@ public class AddAllowanceActivity extends AppCompatActivity
 	private void addAllowance(float allowance, String description)
 	{
 		float newBalance = sharedPreferences.getFloat("allowance", 0.00f) + allowance;
+		File file = new File(getExternalFilesDir(null), "allowance.csv");
+		FileService fileService = new FileService(file);
 
 		editor.putFloat("allowance", newBalance);
 		editor.commit();
 
 		finish();
+
+		fileService.addItem(new History(new Date(), allowance, description));
 	}
 }

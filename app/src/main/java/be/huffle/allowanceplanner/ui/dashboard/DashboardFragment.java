@@ -12,7 +12,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import be.huffle.allowanceplanner.R;
@@ -30,9 +35,19 @@ public class DashboardFragment extends Fragment
 	{
 		dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
 
-		InputStream inputStream = getResources().openRawResource(R.raw.allowance);
-		fileService = new FileService(inputStream);
+		File file = new File(getContext().getExternalFilesDir(null), "allowance.csv");
+		fileService = new FileService(file);
 		List<History> historyList = fileService.readFile();
+
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		for (History historyItem : historyList)
+		{
+			System.out.printf("Description: %s, Amount: %.2f, Date: %s%n",
+					historyItem.getDescription(),
+					historyItem.getAmount(),
+					dateFormat.format(historyItem.getExecutedDate()));
+		}
 
 		View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
 		final TextView textView = root.findViewById(R.id.text_dashboard);
