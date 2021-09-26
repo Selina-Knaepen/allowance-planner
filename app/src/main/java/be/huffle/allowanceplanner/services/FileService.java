@@ -71,6 +71,7 @@ public class FileService
 
 			FileWriter fileWriter = new FileWriter(file.getAbsoluteFile(), true);
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
 			bufferedWriter.write(content);
 			bufferedWriter.newLine();
 			bufferedWriter.close();
