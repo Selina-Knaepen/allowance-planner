@@ -58,6 +58,10 @@ public class AddExpenseActivity extends AppCompatActivity
 				{
 					showDialog("Amount needs to be filled out");
 				}
+				else if (Float.valueOf(amountEditText.getText().toString()) == 0)
+				{
+					showDialog("Amount can't be 0");
+				}
 				else
 				{
 					tryAddExpense(Float.valueOf(amountEditText.getText().toString()),
